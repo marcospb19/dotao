@@ -99,7 +99,7 @@ pub fn parse_tokens(
 
                 if let Some((LexToken::SymlinkArrow, _)) = tokens_iter.peek() {
                     if let Some((LexToken::Value(target), _)) = tokens_iter.nth(1) {
-                        file.to_symlink(target);
+                        file.as_symlink(target);
                     } else {
                         return Err(ParserError::new(
                             current_line,
@@ -132,7 +132,7 @@ pub fn parse_tokens(
                 assert!(!file_stack.is_empty());
 
                 depth += 1;
-                file_stack.last_mut().unwrap().to_directory(vec![]);
+                file_stack.last_mut().unwrap().as_directory(vec![]);
                 quantity_stack.push(0);
                 already_read_some_lmao = false;
             },
@@ -158,7 +158,7 @@ pub fn parse_tokens(
                 // Reversed
                 let vec = vec.into_iter().rev().collect();
 
-                file_stack.last_mut().expect("should").to_directory(vec);
+                file_stack.last_mut().expect("should").as_directory(vec);
             },
 
             LexToken::Separator(separator) => {

@@ -425,7 +425,7 @@ impl<T> FileTree<T> {
         matches!(self, Self::Symlink { .. })
     }
 
-    pub fn to_regular(&mut self) {
+    pub fn as_regular(&mut self) {
         match self {
             Self::Regular { .. } => {},
             Self::Directory { path, extra, .. } | Self::Symlink { path, extra, .. } => {
@@ -436,7 +436,7 @@ impl<T> FileTree<T> {
         }
     }
 
-    pub fn to_directory(&mut self, children: Vec<Self>) {
+    pub fn as_directory(&mut self, children: Vec<Self>) {
         match self {
             Self::Regular { path, extra }
             | Self::Directory { path, extra, .. }
@@ -448,7 +448,7 @@ impl<T> FileTree<T> {
         }
     }
 
-    pub fn to_symlink(&mut self, target_path: impl AsRef<Path>) {
+    pub fn as_symlink(&mut self, target_path: impl AsRef<Path>) {
         match self {
             Self::Regular { path, extra }
             | Self::Directory { path, extra, .. }
