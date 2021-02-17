@@ -3,7 +3,6 @@ use clap::{crate_name, crate_version, App, AppSettings, Arg, SubCommand};
 // Why isn't this working as intended?
 // .about("See --help for more detailed help.")
 // .long_about("See -h for shorter help.")
-
 pub fn parse_args() -> clap::ArgMatches<'static> {
     App::new(crate_name!())
         .version(crate_version!())
@@ -12,6 +11,7 @@ pub fn parse_args() -> clap::ArgMatches<'static> {
         .version_message("Display version information.")
         .subcommand(
             SubCommand::with_name("add")
+                .settings(&[AppSettings::ColoredHelp])
                 .arg(
                     Arg::with_name("groups")
                         .required(true)
@@ -23,6 +23,7 @@ pub fn parse_args() -> clap::ArgMatches<'static> {
         )
         .subcommand(
             SubCommand::with_name("remove")
+                .settings(&[AppSettings::ColoredHelp])
                 .arg(
                     Arg::with_name("groups")
                         .required(true)
@@ -40,6 +41,7 @@ pub fn parse_args() -> clap::ArgMatches<'static> {
                 // )
                 .alias("l")
                 .about("Link groups in the tree file."))
+                .settings(&[AppSettings::ColoredHelp])
         .subcommand(
             SubCommand::with_name("unlink")
                 // .arg(
@@ -48,10 +50,12 @@ pub fn parse_args() -> clap::ArgMatches<'static> {
                 //         .help("Group folders to remove from the tree (default=all)"),
                 // )
                 .alias("u")
+                .settings(&[AppSettings::ColoredHelp])
                 .about("Unlink groups in the tree file."),
         )
         .subcommand(
             SubCommand::with_name("init")
+                .settings(&[AppSettings::ColoredHelp])
                 .arg(
                     Arg::with_name("force")
                         .long("force")
